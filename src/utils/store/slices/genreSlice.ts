@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "..";
+import type { RootState } from "@utils/store";
 
 export interface Genre {
   name: string

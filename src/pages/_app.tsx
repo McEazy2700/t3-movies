@@ -16,7 +16,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
-          <div className="bg-gradient-to-b from-dark-1 to-dark-2 text-light-1">
+          <div className="bg-gradient-to-b overflow-auto max-w-screen min-w-screen min-h-screen from-dark-1 to-dark-2 text-light-1">
             <Component {...pageProps} />
           </div>
         </Provider>

@@ -4,7 +4,7 @@ import React from 'react'
 import Tag from './Tag'
 
 interface TagListProps {
-  genre_ids: [number]
+  genre_ids: number[]
 }
 const TagList = (props: TagListProps) => {
   const { genre_ids } = props
@@ -13,7 +13,7 @@ const TagList = (props: TagListProps) => {
   const genres = allGenres.genres?.filter(genre => genre_ids ? genre_ids.includes(genre.id): [])
 
   return (
-    <ul className='flex gap-1 overflow-x-scroll'>
+    <ul className='flex gap-1 overflow-hidden '>
       {genres && genres.map(genre => <Tag key={genre.id} name={genre.name} />)}
     </ul>
   )

@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MoviesQueryReturn } from "@utils/query";
-import { RootState } from "..";
+import { TMDBMoviesQueryReturn } from "@utils/query";
+import type { RootState } from "@utils/store";
 
 
 const trendingSlice = createSlice({
   name: 'trending',
-  initialState: {} as MoviesQueryReturn,
+  initialState: {} as TMDBMoviesQueryReturn,
   reducers: {
-    setTrending: (state, action: PayloadAction<MoviesQueryReturn>) => {
+    setTrending: (state, action: PayloadAction<TMDBMoviesQueryReturn>) => {
       const newState = Object.assign(state, action.payload) 
       return newState
     }

@@ -2,11 +2,11 @@ import React from 'react'
 import Poster from '@components/common/poster/Poster'
 import { motion } from 'framer-motion'
 import TagList from '@components/common/tag/TagList'
-import { MovieListObject } from '@utils/query'
+import { TMDBMovieListObject } from '@utils/query'
 import { getMovieImageUrl } from '../utils'
 
 interface TrendingMovieProps {
-  movie: MovieListObject
+  movie: TMDBMovieListObject
 }
 const backdropWidth = 1280
 const TrendingMovie = (props: TrendingMovieProps) => {

@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { getMovieImageUrl } from '@components/movie/utils'
 
-const posterWidth = 185
+const posterWidth = 342
 
 interface PosterProps {
   posterPath: string
@@ -15,8 +15,8 @@ const Poster = (props: PosterProps) => {
   return (
     <Image 
       width={posterWidth}
-      className={`${className} rounded h-auto w-auto`}
-      height={250}
+      className={`${className} sm:max-h-[350px] rounded h-auto w-auto`}
+      height={400}
       src={getMovieImageUrl(posterPath, posterWidth)}
       alt={alt}/>
   )

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { MovieListObject } from '@utils/query'
+import { TMDBMovieListObject } from '@utils/query'
 import TrendingMovie from './TrendingMovie'
 import { useAppSelector } from '@utils/store'
 import { selectTrending } from '@utils/store/slices/trendingSlice'
@@ -27,10 +27,10 @@ const TrendingMovies = () => {
 
     
   return (
-    <ul className='flex overflow-x-scroll'>
+    <ul className='flex overflow-hidden'>
       <AnimatePresence>
         {trending &&
-          <TrendingMovie key={trending[showing]?.id} movie={trending[showing] ?? {} as MovieListObject} />
+          <TrendingMovie key={trending[showing]?.id} movie={trending[showing] ?? {} as TMDBMovieListObject} />
         }
       </AnimatePresence>
     </ul>
