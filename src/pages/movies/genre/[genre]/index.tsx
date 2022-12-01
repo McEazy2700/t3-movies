@@ -1,5 +1,4 @@
 import React from "react"
-import ErrorPage from 'next/error'
 import MoviesList from "@components/movie/movies-list/MoviesList"
 import { discoverMovies } from "@utils/query"
 import { useAppDispatch } from "@utils/store"
@@ -9,7 +8,6 @@ import { useRouter } from "next/router"
 
 const GenreMovies = () => {
   const [result, setReslut] = React.useState({ loading: true })
-  const [error, setError] = React.useState(false)
   const router = useRouter()
   const { genre } = router.query
 
@@ -29,9 +27,6 @@ const GenreMovies = () => {
     }
   },[genreId])
 
-  if (error) {
-    return <ErrorPage statusCode={404} />
-  }
   if (result.loading) {
     return <FullPageLoader />
   }
