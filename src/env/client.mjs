@@ -1,4 +1,5 @@
 // @ts-check
+/* eslint no-undef: 0 */
 import { clientEnv, clientSchema } from "./schema.mjs";
 
 const _clientEnv = clientSchema.safeParse(clientEnv);

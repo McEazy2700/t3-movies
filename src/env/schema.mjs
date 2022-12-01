@@ -1,4 +1,5 @@
 // @ts-check
+/* eslint no-undef: 0 */
 import { z } from "zod";
 
 /**
