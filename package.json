@@ -1,5 +1,4 @@
 {
-  "name": "template",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -24,6 +23,7 @@
     "react-icons": "^4.6.0",
     "react-player": "^2.11.0",
     "react-redux": "^8.0.5",
+    "vercel": "^28.7.0",
     "webtorrent": "^1.9.4",
     "webtorrent-hybrid": "^5.0.2",
     "zod": "^3.18.0"
