@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { type NextPage } from "next";
 import { useAppDispatch } from '@utils/store'
 import Head from "next/head";
@@ -31,12 +31,18 @@ export async function getServerSideProps(){
 }
 
 
+const popular = "movie/popular"
+const getPopularMoives = (page: string | number) => {
+  return fetchMovies(popular, page)
+}
+
 const Home: NextPage<HomePageProps> = (props) => {
-  const { genres, movies, trending } = props
+  const { genres, movies, trending } = props // eslint-ignore-line
   const dispatch = useAppDispatch()
   dispatch(setGenre({result: genres}))
   dispatch(setMovies(movies))
   dispatch(setTrending(trending))
+
 
   console.log({genres, movies, trending})
   if (!genres || !movies || !trending) {
@@ -57,7 +63,7 @@ const Home: NextPage<HomePageProps> = (props) => {
       </Head>
       <main className="p-2 md:p-5 gap-3 flex flex-col">
         <TrendingMovies />
-        <MoviesList />
+        <MoviesList fetchMovies={getPopularMoives} />
       </main>
     </>
   );

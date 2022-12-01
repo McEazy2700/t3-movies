@@ -2,20 +2,24 @@ import React, { useState } from 'react'
 import MovieCard from '@components/movie/movie-card/MovieCard'
 import { useAppDispatch, useAppSelector } from '@utils/store'
 import { appendMovies, selectMovies } from '@utils/store/slices/moviesSlice'
-import { fetchMovies } from '@utils/query'
+import { TMDBMoviesQueryReturn } from '@utils/query'
 import RefetchButton from '@components/common/buttons/RefetchButton'
 import FullPageLoader from '@components/common/loading/FullPageLoader'
 
-const MoviesList = () => {
+interface MoviesListProps {
+  fetchMovies: (page: string | number) => Promise<TMDBMoviesQueryReturn>
+}
+
+const MoviesList = (props: MoviesListProps) => {
+  const { fetchMovies } = props
   const movies = useAppSelector(selectMovies)
   const [loadingNext, setLoadingNext] = useState(false)
   const [nextPage, setNextPage] = useState(2)
-  const popular = "movie/popular"
   const dispatch = useAppDispatch()
 
   const handeleRefetch = ()=> {
     setLoadingNext(true)
-    fetchMovies(popular, nextPage).then(resp => {
+    fetchMovies(nextPage).then(resp => {
       dispatch(appendMovies(resp))
       setNextPage(currPageNum => currPageNum += 1)
       setLoadingNext(false)

@@ -19,7 +19,7 @@ const TMDBBackDrop = (props: TMDBBackDropProps) => {
 
   React.useEffect(()=>{
     const interval = setInterval(()=>{
-      if (showing < backdrops.length - 1 && backdrops[showing + 1]?.file_path) {
+      if (showing < backdrops.length - 2 && backdrops[showing + 1]?.file_path) {
         setShowing(curr => curr += 1)
       }else {
         setShowing(0)

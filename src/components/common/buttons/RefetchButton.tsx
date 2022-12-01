@@ -12,7 +12,7 @@ const RefetchButton = (props: ButtonProps) => {
   return (
     <button 
       className={
-      `${className} transition-all hover:bg-dark-3 hover:p-1 hover:px-6 border-2 border-dark-1 px-4 rounded flex items-center justify-center text-sm font-semibold bg-dark-3/60`}
+      `${className} transition-all hover:bg-dark-3 hover:p-1 hover:px-6 border-2 border-light-2/20 px-4 rounded flex items-center justify-center text-sm font-semibold bg-dark-3/60`}
       onClick={onClick}onKeyDown={onKeyDown}>
       {children}
     </button>

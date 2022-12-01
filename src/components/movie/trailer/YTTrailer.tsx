@@ -1,4 +1,4 @@
-import AOButton from '@components/common/buttons/AccentButtons'
+import AccentButton from '@components/common/buttons/AccentButtons'
 import YoutubeButton from '@components/common/buttons/YoutubeButton'
 import Modal from '@components/common/modal/Modal'
 import React from 'react'
@@ -29,7 +29,7 @@ const YTTrailer = (props: YTTrailerProps) => {
               url={`https://www.youtube.com/watch?v=${trailerCode}`}
               style={{ aspectRatio: '16 / 9'}}/>
           </div>
-          <AOButton onClick={closeTrailer}>Close</AOButton>
+          <AccentButton onClick={closeTrailer}>Close</AccentButton>
         </div>
       </Modal>
     </div>
