@@ -5,6 +5,7 @@ import { useAppDispatch } from "@utils/store"
 import { setMovies } from "@utils/store/slices/moviesSlice"
 import FullPageLoader from "@components/common/loading/FullPageLoader"
 import { useRouter } from "next/router"
+import getNavLayout from "src/layouts/hooks/getNavLoayout"
 
 const GenreMovies = () => {
   const [result, setReslut] = React.useState({ loading: true })
@@ -44,3 +45,4 @@ const GenreMovies = () => {
 
 export default GenreMovies
 
+GenreMovies.getLayout = getNavLayout

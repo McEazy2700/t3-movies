@@ -42,7 +42,7 @@ const TMDBBackDrop = (props: TMDBBackDropProps) => {
 
       <div className='bg-no-repeat z-[1] absolute inset-0 bg-center transition-all min-h-screen min-w-screen object-cover bg-cover'>
         <div
-          className='bg-gradient-to-b grid grid-cols-1 gap-7 p-2 overflow-hidden items-center justify-center text-light-1 from-transparent to-dark-2 min-h-screen min-w-screen'>
+          className='bg-gradient-to-b pt-16 grid grid-cols-1 gap-7 p-2 overflow-hidden items-center justify-center text-light-1 from-transparent to-dark-2 min-h-screen min-w-screen'>
           {children}
         </div>
       </div>

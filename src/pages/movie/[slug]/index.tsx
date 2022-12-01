@@ -14,6 +14,7 @@ import AccentButton from '@components/common/buttons/AccentButtons'
 import { prepTorrent } from '@components/movie/torrent/prepTorent'
 import loadjs from 'loadjs'
 import DownloadMovie from '@components/movie/download/DownloadMovie'
+import getNavLayout from 'src/layouts/hooks/getNavLoayout'
 
 const script = "https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" 
 const MovieDetail= () => {
@@ -128,3 +129,5 @@ const MovieDetail= () => {
 }
 
 export default MovieDetail
+
+MovieDetail.getLayout = getNavLayout

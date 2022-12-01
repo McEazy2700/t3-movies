@@ -1,5 +1,5 @@
 import React from "react";
-import { type AppType } from "next/app";
+import { AppProps } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { QueryClientProvider } from "@tanstack/react-query"
@@ -9,12 +9,19 @@ import { queryClient } from "../utils/query";
 import store from "@utils/store";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { NextPage } from "next";
 
+export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: React.ReactElement) => React.ReactNode
+}
 
-const MyApp: AppType<{ session: Session | null }> = ({
-  Component, //eslint-disable-line
-  pageProps: { session, ...pageProps }, // eslint-disable-line
-}) => {
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout,
+  session: Session | null
+}
+
+const MyApp = ({ Component, pageProps: { session, ...pageProps }}: AppPropsWithLayout) => {
+  const getLayout = Component.getLayout ?? (page => page)
   const rounter = useRouter()
   return (
     <SessionProvider session={session}>
@@ -28,7 +35,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
               exit={{ opacity: 0, transition: {duration: 0.1 } }}
               key={rounter.route}
               className="bg-gradient-to-b overflow-auto max-w-screen min-w-screen min-h-screen from-dark-1 to-dark-2 text-light-1">
-              <Component {...pageProps} />
+              {getLayout(<Component {...pageProps} />)}
             </motion.div>
           </AnimatePresence>
         </Provider>
