@@ -101,13 +101,13 @@ const MovieDetail= () => {
           />
         <Modal isOpen={video.open} onClose={closeVideo}>
           <div className='rounded-lg relative gap-2 p-4 w-full min-h-[60vh] flex flex-col items-center justify-center'>
-            <div className='w-[95vw] md:w-[80vw] relative lg:w-[70vw] aspect-video overflow-hidden rounded-xl'>
+            <div className='w-[99vw] md:w-[80vw] relative lg:w-[70vw] aspect-video overflow-hidden rounded-xl'>
               <DownloadMovie torrentURI={video.torrentURI} isOpen={downloadOpen} close={closeDownload} />
               <video id='player' controls className='w-full rounded-xl aspect-video' height={'100%'} width={'100%'} src={video.torrentURI}>
                 <track srcLang="en" label="test" default src="https://raw.githubusercontent.com/andreyvit/subtitle-tools/master/sample.srt" />
               </video>
             </div>
-            <div className='flex items-center justify-evenly w-1/2'>
+            <div className='flex items-center gap-3 md:justify-evenly w-1/2'>
               <AccentButton
                 className='flex items-center flex-row flex-nowrap justify-center'
                 onClick={openDownload}
