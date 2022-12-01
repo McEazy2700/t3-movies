@@ -12,8 +12,8 @@ import { useRouter } from "next/router";
 
 
 const MyApp: AppType<{ session: Session | null }> = ({
-  Component,
-  pageProps: { session, ...pageProps },
+  Component, //eslint-disable-line
+  pageProps: { session, ...pageProps }, // eslint-disable-line
 }) => {
   const rounter = useRouter()
   return (

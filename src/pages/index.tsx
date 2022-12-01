@@ -37,7 +37,7 @@ const getPopularMoives = (page: string | number) => {
 }
 
 const Home: NextPage<HomePageProps> = (props) => {
-  const { genres, movies, trending } = props // eslint-ignore-line
+  const { genres, movies, trending } = props // eslint-disable-line
   const dispatch = useAppDispatch()
   dispatch(setGenre({result: genres}))
   dispatch(setMovies(movies))
