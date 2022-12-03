@@ -16,10 +16,10 @@ import loadjs from 'loadjs'
 import DownloadMovie from '@components/movie/download/DownloadMovie'
 import getNavLayout from 'src/layouts/hooks/getNavLoayout'
 
-const script = "https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js" 
-const MovieDetail= () => {
+const script = "https://cdn.jsdelivr.net/npm/@webtor/embed-sdk-js/dist/index.min.js"
+
+const MovieDetail = () => {
   const [error, setError] = useState()
-  const [downloadOpen, setDownloadOpen] = useState(false)
   const [loading, setLoading] = useState({
     tmdb: true,
     yts: true,
@@ -28,8 +28,13 @@ const MovieDetail= () => {
   const router = useRouter()
   const { slug } = router.query
   const slugWords = slug?.toString().split('-')
-  const movieId = slugWords ? slugWords[slugWords?.length -1] : ''
+  const movieId = slugWords ? slugWords[slugWords?.length - 1] : ''
   const dispatch = useAppDispatch()
+  const [download, setDownload] = useState({
+    open: false,
+    loading: false,
+    torrentURI: ''
+  })
   const [video, setVideo] = useState({
     open: false,
     loading: false,
@@ -39,26 +44,44 @@ const MovieDetail= () => {
   const tmdbMovie = useAppSelector(selecteTMDBMovie)
   const ytsMovie = useAppSelector(selectYtsMovie)
 
-  const openDownload = () => setDownloadOpen(true)
-  const closeDownload = () => setDownloadOpen(false)
 
-  const setUri = (uri: string) => setVideo(curr => { return {...curr, torrentURI: uri }})
+  const setUri = (uri: string) => setVideo(curr => {
+    return { ...curr, torrentURI: uri }
+  })
+
+  const setDownloadUri = (uri: string) => setDownload(curr => {
+    return { ...curr, torrentURI: uri }
+  })
+
+  const downloadVideo = async (url: string) => {
+    setDownload(curr => { return { ...curr, open: true, loading: true } })
+    prepTorrent(url, setDownloadUri).then(() => {
+      const timer = setTimeout(() => {
+        setDownload(curr => { return { ...curr, loading: false } })
+      }, 6000)
+      return () => clearTimeout(timer)
+    })
+  }
 
   const playVideo = async (url: string) => {
     setVideo(curr => { return { ...curr, open: true, loading: true } })
     prepTorrent(url, setUri).then(() => {
-      const timer = setTimeout(()=>{
-        setVideo(curr => { return {...curr, loading: false }})
+      const timer = setTimeout(() => {
+        setVideo(curr => { return { ...curr, loading: false } })
       }, 5000)
       return () => clearTimeout(timer)
     })
   }
 
-  const closeVideo = () => {
-    setVideo(prev => {return {...prev, open: false }})
+  const closeDownload = () => {
+    setDownload(curr => { return { ...curr, open: false } })
   }
 
-  useEffect(()=>{
+  const closeVideo = () => {
+    setVideo(prev => { return { ...prev, open: false } })
+  }
+
+  useEffect(() => {
     if (movieId) {
       fetchTMDBMovie(movieId).then(result => {
         fetchYTSMovie(result.imdb_id.toString() ?? '').then(ytsResult => {
@@ -73,7 +96,7 @@ const MovieDetail= () => {
         setLoading(curr => { return { ...curr, images: false } })
       })
     }
-  },[movieId])
+  }, [movieId])
 
 
   if (loading.tmdb || loading.yts || loading.images) {
@@ -90,40 +113,35 @@ const MovieDetail= () => {
 
   return (
     <>
-  <TMDBBackDrop>
-    {video.loading && <FullPageLoader className='bg-dark-2 z-[10000]'/>}
-        <MovieTeaser onPlay={playVideo} movie={tmdbMovie} ytsMovie={ytsMovie}/>
+      <TMDBBackDrop>
+        {video.loading || download.loading && <FullPageLoader className='bg-dark-2 z-[10000]' />}
+        <MovieTeaser onDownload={downloadVideo} onPlay={playVideo} movie={tmdbMovie} ytsMovie={ytsMovie} />
         <MovieInfo
           companies={tmdbMovie.production_companies}
           overview={tmdbMovie.overview}
           title={tmdbMovie.original_title}
           trailerCode={ytsMovie.data?.movie?.yt_trailer_code}
-          />
+        />
+        <Modal isOpen={download.open} onClose={closeDownload}>
+          <div className='flex flex-col p-3 overflow-auto items-center justify-center'>
+            <DownloadMovie torrentURI={download.torrentURI} close={closeDownload} />
+          </div>
+        </Modal>
         <Modal isOpen={video.open} onClose={closeVideo}>
-          <div className='rounded-lg relative gap-2 p-4 w-full min-h-[60vh] flex flex-col items-center justify-center'>
+          <div className='rounded-lg relative gap-2 mt-36 p-4 w-full min-h-[60vh] flex flex-col items-center justify-center'>
             <div className='w-[99vw] md:w-[80vw] relative lg:w-[70vw] aspect-video overflow-hidden rounded-xl'>
-              <DownloadMovie torrentURI={video.torrentURI} isOpen={downloadOpen} close={closeDownload} />
               <video id='player' controls className='w-full rounded-xl aspect-video' height={'100%'} width={'100%'} src={video.torrentURI}>
                 <track srcLang="en" label="test" default src="https://raw.githubusercontent.com/andreyvit/subtitle-tools/master/sample.srt" />
               </video>
             </div>
-            <div className='flex items-center gap-3 md:justify-evenly w-1/2'>
-              <AccentButton
-                className='flex items-center flex-row flex-nowrap justify-center'
-                onClick={openDownload}
-                variant='green' >
-                <span>Download</span>
-                {/* <span><AiOutlineDownload /></span> */}
-              </AccentButton>
-              <AccentButton onClick={closeVideo}>Close</AccentButton>
-            </div>
+            <AccentButton onClick={closeVideo}>Close</AccentButton>
           </div>
         </Modal>
-    </TMDBBackDrop>
-    <div className='text-transparent'>
-      {/* @ts-ignore */}{/* eslint-disable-line */}
-      {setTimeout(()=>loadjs(script), 300)}
-    </div>
+      </TMDBBackDrop>
+      <div className='text-transparent'>
+        {/* @ts-ignore */}{/* eslint-disable-line */}
+        {setTimeout(() => loadjs(script), 300)}
+      </div>
     </>
   )
 }

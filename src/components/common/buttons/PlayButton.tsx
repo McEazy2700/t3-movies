@@ -12,8 +12,10 @@ const PlayButton = (props: PlayButtonProps) => {
     <motion.button
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      key={Math.random()}
       exit={{ opacity: 0 }}
-      onClick={onClick} className={`${styles.playButton} text-3xl p-5 hover:p-6 transition-all rounded-full`}>
+      onClick={onClick}
+      className={`${styles.playButton} text-3xl p-5 hover:p-6 transition-all rounded-full`}>
       <FaPlay />
     </motion.button>
   )
