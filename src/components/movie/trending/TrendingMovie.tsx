@@ -32,7 +32,7 @@ const TrendingMovie = (props: TrendingMovieProps) => {
 
       <div className='z-20 items-end flex h-fit gap-3'>
         <div className='flex min-w-[100px] flex-1'>
-          <Poster className='h-full' posterPath={movie.poster_path} alt={movie.original_title} />
+          <Poster className='h-full' posterPath={movie.poster_path ?? ''} alt={movie.original_title ?? ''} />
         </div>
         <div className='text-light-2 flex flex-col gap-1.5 py-1 relative h-full text-xs sm:text-sm max-w-2xl'>
           <h3 className='font-bold text-md text-lg md:pb-3'>{movie.title}</h3>
