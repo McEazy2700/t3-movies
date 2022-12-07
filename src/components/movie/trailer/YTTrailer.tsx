@@ -20,7 +20,7 @@ const YTTrailer = (props: YTTrailerProps) => {
         <YoutubeButton onClick={openTrailer} className='absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2'/>
       </div>
       <Modal isOpen={trailerShowing} onClose={closeTrailer}>
-        <div className='p-4 flex flex-col justify-center items-center gap-3 w-full h-full overflow-y-scroll'>
+        <div className='p-0.5 md:p-3 flex w-[99vw] flex-col justify-center items-center gap-3 md:w-full h-full overflow-y-scroll'>
           <div className='flex gap-3 aspect-video flex-col items-center w-full overflow-hidden rounded-xl'>
             <ReactPlayer
               controls
