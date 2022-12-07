@@ -15,6 +15,14 @@ const ytsURL = process.env.NEXT_PUBLIC_YTS_MOVIES_URL
 const apiKey = process.env.NEXT_PUBLIC_API_KEY
 
 
+// Serches and returns a list of matches to a movie
+export async function serarchMovies(query: string, page?: string | number): Promise<TMDBMoviesQueryReturn> {
+    const currPage = page ? page : 1
+    const searchUrl = `${tmdbURL}/search/movie?api_key=${apiKey}&query=${query}&adult=false&page=${currPage}`
+    return fetch(searchUrl).then(response => response.json())
+}
+
+
 // Fetches and returns a list of movies from TMDB in json format.
 export async function fetchMovies(path: string, page?: string | number): Promise<TMDBMoviesQueryReturn> {
   const currPage = page ? page : 1

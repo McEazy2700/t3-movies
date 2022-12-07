@@ -15,7 +15,7 @@ const store = configureStore({
     trending: trendingReducer,
     tmdbMovie: tmdbMovieReducer,
     ytsMovie: ytsMovieReducer,
-    tmdbMovieImages: tmdbMovieImagesReducer
+    tmdbMovieImages: tmdbMovieImagesReducer,
   }
 })
 
