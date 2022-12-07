@@ -34,7 +34,7 @@ const MovieTeaser = (props: MovieTeaserProps) => {
   return (
     <>
       <div className='flex md:p-10 relative flex-col justify-center sm:items-end gap-2 sm:flex-row min-w-[95%]'>
-        <Poster posterPath={movie.poster_path} alt={movie.original_title} />
+        <Poster posterPath={movie.poster_path ?? ''} alt={movie.original_title ?? ''} />
         <div className='flex gap-2 flex-col items-start justify-center w-full' >
           <AnimatePresence>
             {!showingQuality ? <PlayButton onClick={handlePlay} />
