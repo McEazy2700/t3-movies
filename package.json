@@ -14,6 +14,7 @@
     "@reduxjs/toolkit": "^1.9.0",
     "@tanstack/react-query": "^4.17.1",
     "@types/loadjs": "^4.0.1",
+    "@vercel/analytics": "^0.1.6",
     "framer-motion": "^7.6.12",
     "immer": "^9.0.16",
     "loadjs": "^4.2.0",

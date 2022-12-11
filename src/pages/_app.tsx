@@ -2,6 +2,7 @@ import React from "react";
 import { AppProps } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
+import { Analytics } from "@vercel/analytics/react";
 import { QueryClientProvider } from "@tanstack/react-query"
 import { Provider } from "react-redux";
 import "../styles/globals.css";
@@ -36,6 +37,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps }}: AppPropsWithL
               key={rounter.route}
               className="bg-gradient-to-b overflow-auto max-w-screen min-w-screen min-h-screen from-dark-1 to-dark-2 text-light-1">
               {getLayout(<Component {...pageProps} />)}
+              <Analytics />
             </motion.div>
           </AnimatePresence>
         </Provider>
